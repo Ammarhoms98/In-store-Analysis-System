@@ -1,0 +1,55 @@
+body{
+    background: url("not/backwall.jpg") no-repeat center fixed;
+    background-size: cover;
+}
+.navbar-brand {
+	font-size: 2rem;
+	font-weight: bold;
+}
+
+.navbar-nav .nav-link {
+	font-size: 1.2rem;
+	margin-left: 1rem;
+}
+
+#video-container {
+	margin-bottom: 5rem;
+}
+
+#video-container iframe {
+	border: none;
+	box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+}
+
+#add-video {
+	margin-top: 1rem;
+}
+
+#video-list td {
+	vertical-align: middle;
+}
+
+.table thead th {
+	font-weight: bold;
+}
+
+.table tbody tr:hover {
+	background-color: #f1f1f1;
+}
+
+@media (max-width: 767px) {
+	.navbar-brand {
+		font-size: 1.5rem;
+	}
+	
+	.navbar-nav .nav-link {
+		font-size: 1rem;
+		margin-left: 0.5rem;
+	}
+}
+
+@media (min-width: 768px) {
+	#video-container iframe {
+		height: 50vh;
+	}
+}
