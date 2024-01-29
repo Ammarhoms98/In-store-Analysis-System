@@ -1,0 +1,127 @@
+
+<?php
+session_start();
+
+// check if user is logged in
+if (!isset($_SESSION['user'])) {
+    header('Location: login.php');
+    exit;
+}
+?>
+
+
+
+<?php
+
+require("conf/getvedios.php");
+
+$getv=vedget();
+
+?>
+
+
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<title>Multi-Video Page</title>
+		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+		<link rel="stylesheet" href="style.css">
+    <meta charset="utf-8">
+    <title>Real Time Data Display</title>
+  </head>
+  <body onload = "table();">
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+			<div class="container">
+				<a class="navbar-brand" href="#">In-store Analysis System</a>
+				<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+					<span class="navbar-toggler-icon"></span>
+				</button>
+				<div class="collapse navbar-collapse" id="navbarNav">
+					<ul class="navbar-nav ml-auto">
+						<li class="nav-item active">
+							<a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+						</li>
+            <li class="nav-item active">
+							<a class="nav-link" href="conf/add.php">ADD CAMERAS <span class="sr-only">(current)</span></a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link" href="login.php">EMPLOYEE</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</nav>
+    
+		<div class="container mt-5">
+			<h1 class="text-center">Multi-Video Page</h1>
+			<div class="row mt-5">
+				<div class="col-md-8">
+				<style>
+  .video-wrapper {
+    position: relative;
+    padding-bottom: 56.25%;
+    /* Set aspect ratio of video */
+    height: 0;
+    margin-bottom: 15px;
+  }
+  .video-wrapper video {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+  }
+</style>
+
+<div class="row mt-5">
+  <?php foreach($getv as $getv1) { ?>
+    <div class="col-md-4 mb-5">
+    <label><?= $getv1->name_vid?></label>
+      <div class="video-wrapper">
+      
+    
+	  <video src="<?= $getv1->video_path ?>" controls controlsList="nodownload">
+  <track kind="captions" src="captions.vtt" label="English" srclang="en" default>
+  <button class="playpause-button" icon="▶️"></button>
+  <div class="progress-bar">
+    <div class="progress"></div>
+  </div>
+  <button class="mute-button" icon="🔇"></button>
+  <button class="fullscreen-button" icon="🔍"></button>
+</video>
+
+        <!--<video src="//<?= $getv1->video_path ?>" controls></video>-->
+      </div>
+    </div>
+  <?php } ?>
+</div>
+    <script type="text/javascript">
+      function table(){
+        const xhttp = new XMLHttpRequest();
+        xhttp.onload = function(){
+          document.getElementById("table").innerHTML = this.responseText;
+        }
+        xhttp.open("GET", "system1.php");
+        xhttp.send();
+      }
+
+      setInterval(function(){
+        table();
+      }, 1);
+    </script>
+    <div id="table">
+
+    </div>
+    
+   <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+		<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+		<script src="script.js"></script>
+
+  </body>
+</html>
+
+
+
+		
+
